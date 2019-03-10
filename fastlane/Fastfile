@@ -1,0 +1,54 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+
+before_all do
+	ENV["SLACK_URL"] = "https://hooks.slack.com/services/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"
+end
+
+lane :slack_build do
+  gradle(task: "assembleRelease")
+  slack(message: "Build Successful!")
+  upload_to_slack()
+end
+
+# Add this to your Fastfile
+desc "Upload the APK to Slack channel"
+private_lane :upload_to_slack do |options|
+  file_path = lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]
+  file_name = file_path.gsub(/\/.*\//,"")
+  access_token = "xoxp-555130557077-556238898166-571411413216-6cbdcdfe203ee011f883845dbd1d2e47"
+  channel_name = "android-application"
+  sh "echo Uploading " + file_name + " to Slack"
+  sh "curl https://slack.com/api/files.upload -F token=\"" + access_token + "\" -F channels=\"" + channel_name + "\" -F title=\"" + file_name + "\" -F filename=\"" + file_name + "\" -F file=@" + file_path
+end
+
+after_all do |lane|
+	slack(
+		message: "successful deploy :rocket:"
+		)
+	end
+
+	error do |lane, exception|
+		slack(
+			message: exception.message,
+			success:false
+		)
+	end
+end
+

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: default_platform" time="0.007665956">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: gradle" time="6.296424826">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: slack" time="1.081391463">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: Switch to android upload_to_slack lane" time="0.001685505">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: echo Uploading app-release-unsigned.apk to Slack" time="0.003957898">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: curl https://slack.com/api/files.upload -F token=&quot;xoxp-555130557077-556238898166-571411413216-6cbdcdfe203ee011f883845dbd1d2e47&quot; -F channels=&quot;android-application&quot; -F title=&quot;app-release-unsigned.apk&quot; -F filename=&quot;app-release-unsigned.apk&quot; -F file=@/home/auna/Documents/Android-Studio/FastTest/app/build/outputs/apk/release/app-release-unsigned.apk" time="7.363638275">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: slack" time="0.722236037">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
